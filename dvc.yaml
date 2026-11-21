@@ -1,0 +1,38 @@
+stages:
+  prepare:
+    cmd: python src/prepare.py
+    deps:
+      - src/prepare.py
+      - data/raw/mental_tiredness.csv
+    params:
+      - prepare.data_path
+      - prepare.test_size
+      - prepare.random_state
+    outs:
+      - data/processed/train.csv
+      - data/processed/test.csv
+
+  train:
+    cmd: python src/train.py
+    deps:
+      - src/train.py
+      - data/processed/train.csv
+      - data/processed/test.csv
+    params:
+      - train.n_trials
+      - train.cv_folds
+      - train.random_state
+    outs:
+      - models/model.pkl
+      - models/leaderboard.csv
+      - models/best_model_info.json
+
+  evaluate:
+    cmd: python src/evaluate.py
+    deps:
+      - src/evaluate.py
+      - models/model.pkl
+      - data/processed/test.csv
+    metrics:
+      - metrics.json:
+          cache: false

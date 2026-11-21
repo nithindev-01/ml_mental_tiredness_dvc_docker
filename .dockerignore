@@ -1,0 +1,30 @@
+# Version control and DVC internals
+.git
+.gitignore
+.dvc
+.dvcignore
+dvc.yaml
+dvc.lock
+
+# Experiment tracking
+mlruns
+mlflow.db
+
+# Data (not needed to serve the app)
+data
+
+# Training code and config
+src
+params.yaml
+metrics.json
+
+# Models: keep only the final model
+models/*
+!models/model.pkl
+
+# Python and editor clutter
+__pycache__
+*.pyc
+.vscode
+venv
+.venv
